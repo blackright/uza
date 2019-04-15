@@ -1,1 +1,7 @@
 pillow==5.4.1
+crispy_forms
+django
+PIL
+psycopg2
+pylint
+pytz
