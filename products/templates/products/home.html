@@ -1,0 +1,26 @@
+{% extends "products/base.html" %}
+{% block content %}
+
+<div class="row">
+	<div class="random-background">
+		<div class="itemlist">
+			{% for product in products %}
+				<div class="card_detail">
+					<a href="{% url 'products:products-detail' product.id %}" >
+  						<img src="{{ product.image.url }}" alt="Denim Jeans" style="width:100%">
+  					</a>
+					  <hr>
+					<a href="{% url 'products:products-detail' product.id %}" >
+  						<h3>{{ product.name }}</h3>
+  					</a>
+  					<p class="price">${{ product.price }}</p>
+  					<a href="{% url 'products:products-detail' product.id %}" >
+ 	 					<p><button>View Product</button></p>
+  					</a>
+				</div>
+			{% endfor %}		
+	  	</div>
+	</div>
+</div> <!-- row.// -->
+
+{% endblock content %}

@@ -1,0 +1,129 @@
+{% extends "products/base.html" %}
+{% block content %}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+{% for product in products  %}
+
+
+<!--Main layout-->
+<main class="mt-5 pt-4">
+    <div class="container dark-grey-text mt-5">
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+            <!--Grid column-->
+            <div class="col-lg-6 mb-4">
+                <img src="{{ product.image.url }}"
+                class="img-flid" alt="">
+            </div>
+            <!--Grid column-->
+            <!--Grid column-->
+            <div class="col-lg-6 mb-4">
+                <!--Content-->
+								<h3 class="title" style="text-align:center;">YOUR ORDER DETAIL</h3><hr>
+                <div class="p-4"> 
+										<p class="lead">You Ordered for 
+											<span style="font-size:18px; background-color:red;" id="qtyitem">
+											</span>
+											<span class="lead">{{ product.name }}</span>
+										</p>
+                    <p class="lead">
+ 											Total Amount :
+											 $<span style="font-size:25px; background-color:red;" id="Totalprice"></span>
+                    </p>
+
+									<script>
+										var Qty = localStorage.getItem('itemQty');
+										document.getElementById("qtyitem").innerHTML = Qty;
+
+										var totalPrice = localStorage.getItem('itemTotalPrice');
+										document.getElementById("Totalprice").innerHTML = totalPrice;
+									</script>
+							
+
+                    <p class="lead font-weight-bold">Description</p>
+                    <p>{{ product.description }}</p>
+										<hr>
+                    <form class="d-flex justify-content-left">
+                        <!-- Default input -->
+                        <button class="btn btn-primary btn-md my-0 p" style="margin-right:5px;" type="submit">Add to cart 
+													<i class="fas fa-shopping-cart ml-1"></i>
+                        </button>
+												<a class="btn btn-primary btn-md my-0 p" style="margin-right:5px;" href="{% url 'payment:payment' product.id %}" >Buy {{ product.name }}<i class="fas fa-shopping-bag ml-1"></i></a>
+                    		<a class="btn btn-primary btn-md my-0 p" data-toggle="modal" data-target="#UserContactModal" >Contact {{ product.user.name }}<i class="fas fa-phone ml-1"></i></a>
+                    </form>
+                </div>
+                <!--Content-->
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+        <hr>
+        <!--Grid row-->
+        <div class="row d-flex justify-content-center wow fadeIn">
+            <!--Grid column-->
+            <div class="col-lg-6 text-center">
+                 <h4 class="my-4 h4">Additional information</h4>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit
+                    modi sapiente illo soluta odit voluptates, quibusdam officia. Neque quibusdam
+                    quas a quis porro? Molestias illo neque eum in laborum.</p>
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+            <!--Grid column-->
+            <div class="col-xl-4 col-lg-12 mb-4">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg"
+                class="img-fluid" alt="">
+            </div>
+            <!--Grid column-->
+            <!--Grid column-->
+            <div class="col-xl-4 col-lg-6 mb-4">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg"
+                class="img-fluid" alt="">
+            </div>
+            <!--Grid column-->
+            <!--Grid column-->
+            <div class="col-xl-4 col-lg-6 mb-4">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg"
+                class="img-fluid" alt="">
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+    </div>
+</main>
+<!--Main layout-->
+
+<!-- The Modal -->
+  <div class="modal" id="UserContactModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">{{ product.user.username }}'s Contact</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <span><b>Seller : {{ product.user.username }}</b></span><br>
+					<span><b>Email : <a href="emailto:{{ product.user.email }}">{{ product.user.email }}</a></b></span><br>
+					<span><b>Phone : <a href="">{{ product.user.phone }}<a></b></span>
+        </div>
+        
+        <!-- Modal footer --
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div-->
+        
+      </div>
+    </div>
+  </div>
+
+{% endfor %}
+
+{% endblock content %}

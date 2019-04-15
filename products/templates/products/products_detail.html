@@ -1,0 +1,114 @@
+{% extends "products/base.html" %}
+{% block content %}
+
+  <div class="lightbox-blanket">
+    <div class="pop-up-container">
+      <div class="pop-up-container-vertical">
+        <div class="pop-up-wrapper">
+          <div class="go-back" onclick="GoBack();"><i class="fa fa-arrow-left"></i>
+          </div>
+          <div class="product-details">
+            <div class="product-left">
+              <div class="product-info">
+                <div class="product-manufacturer">{{ object.user.username }}</div><br>
+                <span type=><a href="mailto:{{ object.user.email }}"> {{ object.user.email }} </a></span>
+                <hr>
+                <div class="product-title">
+                  {{ object.name }}
+                </div>
+                <div>
+                  <span><b>Product ID: {{ object.code }}</b></span>
+                </div>
+                <div class="product-price" price-data="320.03">
+                  ${{ object.price }}<span class="product-price-cents">00</span>
+                </div>
+              </div>
+              <div class="product-image">
+                <img src="{{ object.image.url }}" />
+              </div>
+            </div>
+            <div class="product-right">
+              <div class="product-description">{{ object.description }}</div>
+              <div class="product-available">
+                <b><i>{{ object.status }}</i></b> <span class="product-extended"><a href="#">Buy Extended Warranty</a></span>
+              </div>
+              <div class="product-rating">
+                <i class="fa fa-star rating" star-data="1"></i>
+                <i class="fa fa-star rating" star-data="2"></i>
+                <i class="fa fa-star rating" star-data="3"></i>
+                <i class="fa fa-star rating" star-data="4"></i>
+                <i class="fa fa-star" star-data="5"></i>
+                <div class="product-rating-details">(3.1 - <span class="rating-count">1203</span> reviews)
+                </div>
+
+              </div>
+
+                           
+              <div class="product-quantity">
+                <div>
+                  <small class="fa fa-info text-muted" aria-hidden="true">
+                    Type in The Quantity of the Item you want to purchase
+                  </small> 
+                </div><br>
+                <label for="product-quantity-input" class="product-quantity-label"><b><i>Quantity *</i></b></label>
+                <div class="product-quantity-subtract">
+                  <i class="fa fa-chevron-left"></i>
+                </div>
+                <div>
+                  <input type="text" name="product-quantity-input" id="product-quantity-input1" placeholder="0" value="" data-price="{{ object.price }}" onkeyup="CalculateItemsValue()" required="" />
+                </div>
+                <div class="product-quantity-add">
+                  <i class="fa fa-chevron-right"></i>
+                </div>
+              </div>
+            </div>
+            <div class="product-bottom">
+              <div class="product-checkout">
+                Total Price
+                <div class="product-checkout-total">
+                  <i class="fa fa-usd"></i>
+                  <div class="product-checkout-total-amount" id="ItemsTotal" value="ItemsTotal">
+                    0.00
+                  </div>
+                </div>
+              
+              </div>
+              <div class="product-checkout-actions">
+                <a class="add-to-cart btn btn-outline-info" href="{% url 'products:products-checkout' object.id  %}">
+                <button class="btn">Add to Cart <span class="badge badge-primary"></span>
+                </button>
+                </a>
+              </div>
+
+              <!--javascript Code to calculate Total cost of the item and Add it the localStorage-->
+              <script>
+
+                  var total_items = 1;
+                      function CalculateItemsValue() {
+                          var total = 0;
+                          for (i=1; i<=total_items; i++) {
+                                            
+                              itemID = document.getElementById("product-quantity-input"+i);
+                              if (typeof itemID === 'undefined' || itemID === null) {
+                                  alert("No such item - " + "product-quantity-input"+i);
+                              } else {
+                              total = total + parseInt(itemID.value) * parseInt(itemID.getAttribute("data-price"));
+                          }
+                                          
+                          }
+                          document.getElementById("ItemsTotal").innerHTML = total;
+                          console.log(total);
+                          localStorage.setItem('itemQty', itemID.value);
+                          localStorage.setItem('itemTotalPrice', total);
+                      }
+              </script>
+              <!--End javascript Code to calculate Total cost of the item and Add it the localStorage-->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
